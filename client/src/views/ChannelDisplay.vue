@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <div v-if="channel" class="w-full px-4 md:w-1/2 lg:w-1/3">
+    <div v-if="similarities && sully" class="w-full px-4 md:w-1/2 lg:w-1/3">
       <p class="mt-4 mb-4 text-xl font-bold">{{ displayChannel }}</p>
       <p>
         <span class="mr-2 font-semibold">Viewer minutes</span>
@@ -71,7 +71,6 @@ export default {
       s.shared_unique_viewers
     );
     this.sully = body.sullygnome_stats;
-    console.log(this.similarities);
   },
   methods: {
     capitalize,
