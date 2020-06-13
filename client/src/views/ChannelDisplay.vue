@@ -1,16 +1,33 @@
 <template>
   <div class="flex justify-center">
     <div v-if="channel" class="w-full px-4 md:w-1/2 lg:w-1/3">
-      <p class="mt-4 mb-4 font-bold">{{ displayChannel }}</p>
-      <div v-for="(amount, chan) in similarities" :key="chan">
+      <p class="mt-4 mb-4 text-xl font-bold">{{ displayChannel }}</p>
+      <p>
+        <span class="mr-2 font-semibold">Viewer minutes</span>
+        {{ sully.viewminutes.toLocaleString() }}
+      </p>
+      <p>
+        <span class="mr-2 font-semibold">Streamed minutes</span>
+        {{ sully.streamedminutes.toLocaleString() }}
+      </p>
+      <p>
+        <span class="mr-2 font-semibold">Average viewers</span>
+        {{ sully.avgviewers.toLocaleString() }}
+      </p>
+      <p>
+        <span class="mr-2 font-semibold">Max viewers</span>
+        {{ sully.maxviewers.toLocaleString() }}
+      </p>
+      <div v-for="[chan, sim, viewers] in similarities" :key="chan">
         <div class="relative my-2">
           <div class="text-gray-700">
-            {{ capitalize(chan) }}: {{ (amount * 100).toFixed(2) }}%
+            <span class="font-semibold">{{ capitalize(chan) }}</span>
+            {{ (sim * 100).toFixed(2) }}%, {{ viewers }}
           </div>
           <div>
             <div
               class="h-4 text-gray-700 bg-red-400"
-              :style="`width: ${amount * 100}%`"
+              :style="`width: ${sim * 100}%`"
             ></div>
           </div>
         </div>
@@ -20,7 +37,7 @@
 </template>
 
 <script>
-import { capitalize } from "lodash-es";
+import { capitalize, zip } from "lodash-es";
 import superagent from "superagent";
 
 const baseUrl = process.env.VUE_APP_API;
@@ -35,6 +52,7 @@ export default {
   data() {
     return {
       similarities: [],
+      sully: null,
     };
   },
   computed: {
@@ -46,7 +64,14 @@ export default {
     const { body } = await superagent.get(
       `${baseUrl}/data/${this.channel.toLowerCase()}`
     );
-    this.similarities = body;
+    const s = body.top_similarity;
+    this.similarities = zip(
+      s.channel,
+      s.similarity.map((x) => Math.sqrt(x)),
+      s.shared_unique_viewers
+    );
+    this.sully = body.sullygnome_stats;
+    console.log(this.similarities);
   },
   methods: {
     capitalize,

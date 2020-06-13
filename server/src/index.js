@@ -10,7 +10,7 @@ app.use(morgan("short"));
 
 const PORT = 5005;
 
-const data = fs.readJsonSync("data.json");
+const { data } = fs.readJsonSync("data.json");
 
 app.get("/channels", async (req, res) => {
   res.status(200).json(Object.keys(data));
