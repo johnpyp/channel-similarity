@@ -1,10 +1,14 @@
 import "regenerator-runtime/runtime";
 import Vue from "vue";
+import VueMathjax from "vue-mathjax";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import "katex/dist/katex.min.css";
 
 import "./main.css";
+
+Vue.use(VueMathjax);
 
 new Vue({
   store,

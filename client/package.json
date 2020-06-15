@@ -31,6 +31,8 @@
   "dependencies": {
     "@babel/runtime": "^7.10.2",
     "autoprefixer": "^9.8.0",
+    "katex": "^0.11.1",
+    "latex2vue": "^2.2.2",
     "lodash-es": "^4.17.15",
     "postcss": "^7.0.32",
     "postcss-import": "^12.0.1",
@@ -39,6 +41,8 @@
     "tailwindcss": "^1.4.6",
     "vue": "^2.6.11",
     "vue-hot-reload-api": "^2.3.4",
+    "vue-katex": "^0.4.0",
+    "vue-mathjax": "^0.0.11",
     "vue-router": "^3.3.2",
     "vuex": "^3.4.0"
   },

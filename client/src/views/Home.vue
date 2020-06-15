@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-      <div class="my-6 md:flex md:items-center">
+      <div class="flex-wrap my-6 md:flex md:items-center">
         <div>
           <label
             class="block pr-4 mb-1 font-bold text-gray-600 md:text-right md:mb-0"
@@ -36,11 +36,13 @@
 <script>
 import { mapState } from "vuex";
 import { capitalize } from "lodash-es";
+import superagent from "superagent";
 
 export default {
   data() {
     return {
       filterKey: null,
+      latex: null,
     };
   },
   computed: {
@@ -58,6 +60,9 @@ export default {
   },
   async mounted() {
     this.$store.dispatch("updateChannels");
+    const { body } = await superagent.get(`${process.env.VUE_APP_API}/latex`);
+    console.log(body);
+    this.latex = body;
   },
 };
 </script>
