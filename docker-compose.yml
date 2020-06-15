@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  api:
+    image: node:12
+    working_dir: /opt/app
+    command: sh -c "yarn && node src/index.js"
+    environment:
+      NODE_ENV: production
+    volumes:
+      - ./server:/opt/app
+      - channel_similarity_api_node_modules:/opt/app/node_modules
+    ports:
+      - 5005:5005
+    init: true
+    restart: unless-stopped
+
+volumes:
+  channel_similarity_api_node_modules:
+    driver: local

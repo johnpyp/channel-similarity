@@ -19,10 +19,12 @@
         {{ sully.maxviewers.toLocaleString() }}
       </p>
       <div v-for="[chan, sim, viewers] in similarities" :key="chan">
-        <div class="relative my-2">
-          <div class="text-gray-700">
-            <span class="font-semibold">{{ capitalize(chan) }}</span>
-            {{ (sim * 100).toFixed(2) }}%, {{ viewers }}
+        <div class="relative mb-2">
+          <div class="flex text-gray-700">
+            <div class="mr-2 font-semibold">{{ capitalize(chan) }}:</div>
+            <div>{{ (sim * 100).toFixed(2) }}</div>
+            <div class="flex-grow"></div>
+            <div>{{ viewers.toLocaleString() }}</div>
           </div>
           <div>
             <div
