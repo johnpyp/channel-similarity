@@ -1,24 +1,26 @@
 <template>
   <div class="flex justify-center">
-    <div v-if="similarities && sully" class="w-full px-4 md:w-1/2 lg:w-1/3">
+    <div class="w-full px-4 md:w-1/2 lg:w-1/3">
       <p class="mt-4 mb-4 text-xl font-bold">{{ displayChannel }}</p>
-      <p>
-        <span class="mr-2 font-semibold">Viewer minutes</span>
-        {{ sully.viewminutes.toLocaleString() }}
-      </p>
-      <p>
-        <span class="mr-2 font-semibold">Streamed minutes</span>
-        {{ sully.streamedminutes.toLocaleString() }}
-      </p>
-      <p>
-        <span class="mr-2 font-semibold">Average viewers</span>
-        {{ sully.avgviewers.toLocaleString() }}
-      </p>
-      <p>
-        <span class="mr-2 font-semibold">Max viewers</span>
-        {{ sully.maxviewers.toLocaleString() }}
-      </p>
-      <table class="w-full mt-8 table-auto">
+      <div v-if="sully && Object.keys(sully).length > 0">
+        <p>
+          <span class="mr-2 font-semibold">Viewer minutes</span>
+          {{ sully.viewminutes.toLocaleString() }}
+        </p>
+        <p>
+          <span class="mr-2 font-semibold">Streamed minutes</span>
+          {{ sully.streamedminutes.toLocaleString() }}
+        </p>
+        <p>
+          <span class="mr-2 font-semibold">Average viewers</span>
+          {{ sully.avgviewers.toLocaleString() }}
+        </p>
+        <p>
+          <span class="mr-2 font-semibold">Max viewers</span>
+          {{ sully.maxviewers.toLocaleString() }}
+        </p>
+      </div>
+      <table v-if="similarities" class="w-full mt-8 table-auto">
         <thead>
           <tr>
             <th class="px-2 py-2 text-left">
@@ -61,9 +63,18 @@
         </thead>
         <tbody>
           <tr v-for="row in sortedSimilarites" :key="row.channel">
-            <td class="px-4 py-2 border">{{ capitalize(row.channel) }}</td>
             <td class="px-4 py-2 border">
-              {{ (row.similarityScore * 100).toFixed(2) }}
+              <router-link
+                :to="{
+                  name: 'ChannelDisplay',
+                  params: { channel: capitalize(row.channel) },
+                }"
+                class="border-b border-transparent hover:border-blue-500 hover:text-blue-600"
+                >{{ capitalize(row.channel) }}</router-link
+              >
+            </td>
+            <td class="px-4 py-2 border">
+              {{ Math.round(row.similarityScore) }}x
             </td>
             <td class="px-4 py-2 border">{{ row.sharedViewers }}</td>
           </tr>
@@ -109,15 +120,13 @@ export default {
       `${baseUrl}/data/${this.channel.toLowerCase()}`
     );
     const s = body.top_similarity;
-    this.similarities = zip(
-      s.channel,
-      s.similarity.map((x) => Math.sqrt(x)),
-      s.shared_unique_viewers
-    ).map(([channel, similarityScore, sharedViewers]) => ({
-      channel,
-      similarityScore,
-      sharedViewers,
-    }));
+    this.similarities = zip(s.channel, s.similarity, s.shared_unique_viewers)
+      .map(([channel, similarityScore, sharedViewers]) => ({
+        channel,
+        similarityScore,
+        sharedViewers,
+      }))
+      .filter((x) => x.channel.toLowerCase() !== this.channel.toLowerCase());
     this.sully = body.sullygnome_stats;
   },
   methods: {
