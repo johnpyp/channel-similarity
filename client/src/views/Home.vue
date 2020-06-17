@@ -2,8 +2,20 @@
   <div class="flex justify-center">
     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
       <div class="flex-wrap my-6 md:flex md:items-center">
-        <div v-if="latex" class="w-full">
-          <div :key="latex">{{ latex }}</div>
+        <div class="w-full">
+          <p class="mb-2">
+            All data pertains to the timeframe of 5 May 2020 - 5 June 2020.
+          </p>
+          <p class="mb-2">
+            The similarity score tells you how many times more similar the two
+            channels are compared to an average pair of channels.
+          </p>
+          <router-link
+            :to="{ name: 'Details' }"
+            class="text-blue-500 hover:text-blue-700"
+          >
+            Detailed info
+          </router-link>
         </div>
         <div>
           <label
@@ -39,7 +51,6 @@
 <script>
 import { mapState } from "vuex";
 import { capitalize } from "lodash-es";
-import superagent from "superagent";
 
 export default {
   data() {
@@ -61,30 +72,9 @@ export default {
       );
     },
   },
-  watch: {
-    latex() {
-      console.log("data changed");
-      this.$nextTick().then(() => {
-        this.reRender();
-      });
-    },
-  },
   async mounted() {
     this.reRender();
     this.$store.dispatch("updateChannels");
-    const { body } = await superagent.get(`${process.env.VUE_APP_API}/latex`);
-    console.log(body);
-    this.latex = body;
-  },
-  methods: {
-    reRender() {
-      if (window.MathJax) {
-        console.log("rendering mathjax");
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub], () =>
-          console.log("done")
-        );
-      }
-    },
   },
 };
 </script>

@@ -19,6 +19,14 @@
           <span class="mr-2 font-semibold">Max viewers</span>
           {{ sully.maxviewers.toLocaleString() }}
         </p>
+
+        <p class="mt-3 mb-2">
+          All data pertains to the timeframe of 5 May 2020 - 5 June 2020.
+        </p>
+        <p class="mb-2">
+          The similarity score tells you how many times more similar the two
+          channels are compared to an average pair of channels.
+        </p>
       </div>
       <table v-if="similarities" class="w-full mt-8 table-auto">
         <thead>
