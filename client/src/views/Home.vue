@@ -2,7 +2,7 @@
   <div class="flex justify-center">
     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
       <div class="flex-wrap my-6 md:flex md:items-center">
-        <div class="w-full">
+        <div class="w-full mb-2">
           <p class="mb-2">
             All data pertains to the timeframe of 5 May 2020 - 5 June 2020.
           </p>
@@ -73,7 +73,6 @@ export default {
     },
   },
   async mounted() {
-    this.reRender();
     this.$store.dispatch("updateChannels");
   },
 };
