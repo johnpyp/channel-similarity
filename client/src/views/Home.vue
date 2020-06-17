@@ -67,7 +67,9 @@ export default {
       if (!this.filterKey) return [];
       return Object.freeze(
         this.channels
-          .filter((c) => c.includes(this.filterKey ?? ""))
+          .filter((c) =>
+            c.toLowerCase().includes(this.filterKey?.toLowerCase() ?? "")
+          )
           .map((x) => capitalize(x))
       );
     },
