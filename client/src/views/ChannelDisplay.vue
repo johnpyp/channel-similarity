@@ -2,6 +2,13 @@
   <div class="flex justify-center">
     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
       <p class="mt-4 mb-4 text-xl font-bold">{{ displayChannel }}</p>
+      <p class="mt-3 mb-2">
+        All data pertains to the timeframe of 19 May 2020 - 24 July 2020.
+      </p>
+      <p class="mb-2">
+        The similarity score tells you how many times more similar the two
+        channels are compared to an average pair of channels.
+      </p>
       <table v-if="similarities" class="w-full mt-8 table-auto">
         <thead>
           <tr>
