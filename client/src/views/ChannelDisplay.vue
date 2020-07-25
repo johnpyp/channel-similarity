@@ -2,32 +2,6 @@
   <div class="flex justify-center">
     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
       <p class="mt-4 mb-4 text-xl font-bold">{{ displayChannel }}</p>
-      <div v-if="sully && Object.keys(sully).length > 0">
-        <p>
-          <span class="mr-2 font-semibold">Viewer minutes</span>
-          {{ sully.viewminutes.toLocaleString() }}
-        </p>
-        <p>
-          <span class="mr-2 font-semibold">Streamed minutes</span>
-          {{ sully.streamedminutes.toLocaleString() }}
-        </p>
-        <p>
-          <span class="mr-2 font-semibold">Average viewers</span>
-          {{ sully.avgviewers.toLocaleString() }}
-        </p>
-        <p>
-          <span class="mr-2 font-semibold">Max viewers</span>
-          {{ sully.maxviewers.toLocaleString() }}
-        </p>
-
-        <p class="mt-3 mb-2">
-          All data pertains to the timeframe of 5 May 2020 - 5 June 2020.
-        </p>
-        <p class="mb-2">
-          The similarity score tells you how many times more similar the two
-          channels are compared to an average pair of channels.
-        </p>
-      </div>
       <table v-if="similarities" class="w-full mt-8 table-auto">
         <thead>
           <tr>

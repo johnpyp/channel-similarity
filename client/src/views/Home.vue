@@ -4,7 +4,7 @@
       <div class="flex-wrap my-6 md:flex md:items-center">
         <div class="w-full mb-2">
           <p class="mb-2">
-            All data pertains to the timeframe of 5 May 2020 - 5 June 2020.
+            All data pertains to the timeframe of 19 May 2020 - 24 July 2020.
           </p>
           <p class="mb-2">
             The similarity score tells you how many times more similar the two
